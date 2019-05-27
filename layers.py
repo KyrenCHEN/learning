@@ -1,8 +1,9 @@
+import tensorflow as tf
 import tensorflow.keras
 import tensorflow.keras.backend as K
 
 
-class GraphLayer(keras.layers.Layer):
+class GraphLayer(tf.keras.layers.Layer):
 
     def __init__(self,
                  step_num=1,
@@ -16,7 +17,7 @@ class GraphLayer(keras.layers.Layer):
         """
         self.supports_masking = True
         self.step_num = step_num
-        self.activation = keras.activations.get(activation)
+        self.activation = tf.keras.activations.get(activation)
         self.supports_masking = True
         super(GraphLayer, self).__init__(**kwargs)
 
@@ -84,13 +85,13 @@ class GraphConv(GraphLayer):
         :param kwargs: Other arguments for parent class.
         """
         self.units = units
-        self.kernel_initializer = keras.initializers.get(kernel_initializer)
-        self.kernel_regularizer = keras.regularizers.get(kernel_regularizer)
-        self.kernel_constraint = keras.constraints.get(kernel_constraint)
+        self.kernel_initializer = tf.keras.initializers.get(kernel_initializer)
+        self.kernel_regularizer = tf.keras.regularizers.get(kernel_regularizer)
+        self.kernel_constraint = tf.keras.constraints.get(kernel_constraint)
         self.use_bias = use_bias
-        self.bias_initializer = keras.initializers.get(bias_initializer)
-        self.bias_regularizer = keras.regularizers.get(bias_regularizer)
-        self.bias_constraint = keras.constraints.get(bias_constraint)
+        self.bias_initializer = tf.keras.initializers.get(bias_initializer)
+        self.bias_regularizer = tf.keras.regularizers.get(bias_regularizer)
+        self.bias_constraint = tf.keras.constraints.get(bias_constraint)
 
         self.W, self.b = None, None
         super(GraphConv, self).__init__(**kwargs)
@@ -98,13 +99,13 @@ class GraphConv(GraphLayer):
     def get_config(self):
         config = {
             'units': self.units,
-            'kernel_initializer': keras.initializers.serialize(self.kernel_initializer),
-            'kernel_regularizer': keras.regularizers.serialize(self.kernel_regularizer),
-            'kernel_constraint': keras.constraints.serialize(self.kernel_constraint),
+            'kernel_initializer': tf.keras.initializers.serialize(self.kernel_initializer),
+            'kernel_regularizer': tf.keras.regularizers.serialize(self.kernel_regularizer),
+            'kernel_constraint': tf.keras.constraints.serialize(self.kernel_constraint),
             'use_bias': self.use_bias,
-            'bias_initializer': keras.initializers.serialize(self.bias_initializer),
-            'bias_regularizer': keras.regularizers.serialize(self.bias_regularizer),
-            'bias_constraint': keras.constraints.serialize(self.bias_constraint),
+            'bias_initializer': tf.keras.initializers.serialize(self.bias_initializer),
+            'bias_regularizer': tf.keras.regularizers.serialize(self.bias_regularizer),
+            'bias_constraint': tf.keras.constraints.serialize(self.bias_constraint),
         }
         base_config = super(GraphConv, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
