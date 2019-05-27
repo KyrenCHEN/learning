@@ -1,8 +1,5 @@
-# Save a module init file that contains a custom function that we'll use
-# to verify that import works.
-
 import keras.backend as K
-import tensorflow.keras.layers
+import keras.layers
 from keras import optimizers
 from keras.engine.topology import Layer
 from tensorflow.keras.layers import Activation, Lambda
@@ -44,7 +41,7 @@ def wave_net_activation(x):
     """
     tanh_out = Activation('tanh')(x)
     sigm_out = Activation('sigmoid')(x)
-    return tensorflow.keras.layers.multiply([tanh_out, sigm_out])
+    return keras.layers.multiply([tanh_out, sigm_out])
 
 
 def residual_block(x, s, i, activation, nb_filters, kernel_size, padding, dropout_rate=0, name=''):
@@ -83,7 +80,7 @@ def residual_block(x, s, i, activation, nb_filters, kernel_size, padding, dropou
 
     # 1x1 conv.
     x = Convolution1D(nb_filters, 1, padding='same')(x)
-    res_x = tensorflow.keras.layers.add([original_x, x])
+    res_x = keras.layers.add([original_x, x])
     return res_x, x
 
 
@@ -168,7 +165,7 @@ class TCN:
                                              self.kernel_size, self.padding, self.dropout_rate, name=self.name)
                 skip_connections.append(skip_out)
         if self.use_skip_connections:
-            x = tensorflow.keras.layers.add(skip_connections)
+            x = keras.layers.add(skip_connections)
         x = Activation('relu')(x)
 
         if not self.return_sequences:
