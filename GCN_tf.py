@@ -1,6 +1,7 @@
+
 import tensorflow as tf
 import tensorflow.keras
-import tensorflow.keras.backend as K
+import keras.backend as K
 
 
 class GraphLayer(tf.keras.layers.Layer):
@@ -111,7 +112,10 @@ class GraphConv(GraphLayer):
         return dict(list(base_config.items()) + list(config.items()))
 
     def build(self, input_shape):
-        feature_dim = input_shape[0][2]
+        print(input_shape)
+        feature_dim = input_shape[0].as_list()[2]
+     
+        print((feature_dim, self.units), self.kernel_initializer,self.kernel_regularizer,self.kernel_constraint)
         self.W = self.add_weight(
             shape=(feature_dim, self.units),
             initializer=self.kernel_initializer,
