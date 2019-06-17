@@ -48,8 +48,8 @@ def normalize_adj(adj, symmetric=True):
 
 
 def preprocess_adj(adj, symmetric=True):
-    adj = adj + sp.eye(adj.shape[0])
     adj = normalize_adj(adj, symmetric)
+    adj = adj + sp.eye(adj.shape[0])
     return adj
 
 
