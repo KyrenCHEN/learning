@@ -1,3 +1,4 @@
+
 import tensorflow as tf
 import tensorflow.keras
 import keras.backend as K
@@ -113,7 +114,7 @@ class GraphConv(GraphLayer):
     def build(self, input_shape):
         print(input_shape)
         feature_dim = input_shape[0].as_list()[2]
-
+     
         print((feature_dim, self.units), self.kernel_initializer,self.kernel_regularizer,self.kernel_constraint)
         self.W = self.add_weight(
             shape=(feature_dim, self.units),
