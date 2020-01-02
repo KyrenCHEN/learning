@@ -114,7 +114,7 @@ class GraphConv(GraphLayer):
     def build(self, input_shape):
         print(input_shape)
         feature_dim = input_shape[0].as_list()[2]
-     
+
         print((feature_dim, self.units), self.kernel_initializer,self.kernel_regularizer,self.kernel_constraint)
         self.W = self.add_weight(
             shape=(feature_dim, self.units),
@@ -137,6 +137,8 @@ class GraphConv(GraphLayer):
         return input_shape[0][:2] + (self.units,)
 
     def compute_mask(self, inputs, mask=None):
+        if mask is None:
+            mask = [None]
         return mask[0]
 
     def _call(self, features, edges):
@@ -155,6 +157,8 @@ class GraphPool(GraphLayer):
         return input_shape
 
     def compute_mask(self, inputs, mask=None):
+        if mask is None:
+          mask = [None]
         return mask[0]
 
 
